@@ -1,0 +1,14 @@
+﻿<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core
+    </a>.</p>
+
+    @if(DateTime.Now.Minute % 2 == 0)
+    {
+        <p>Current minute is <span class="badge bg-info text-dark">even!</span></p>
+    }
+    else
+    {
+        <p>Current minute is <span class="badge bg-warning text-dark">odd!</span></p>
+    }
+</div>
