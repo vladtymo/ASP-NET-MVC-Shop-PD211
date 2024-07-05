@@ -4,7 +4,6 @@
 <h1>Products List</h1>
 <p>You can manage the products here.</p>
 
-
 <table class="table">
     <thead>
         <tr class="table-dark">
@@ -14,6 +13,7 @@
             <th scope="col">Category</th>
             <th scope="col">Status</th>
             <th scope="col">Discount</th>
+            <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -31,8 +31,8 @@
                 <td>
                     @if(i.Discount > 0)
                     {
-                        <del>@i.Price$</del>
                         <span>@(i.Price - (i.Price / 100 * i.Discount))$</span>
+                        <del>@i.Price$</del>
                     }
                     else
                     {
@@ -51,6 +51,14 @@
                     }
                 </td>
                 <td>@i.Discount%</td>
+                <td>
+                    <button type="button" class="btn btn-outline-secondary">
+                        <i class="bi bi-info-square-fill"></i>
+                    </button>
+                    <a class="btn btn-outline-danger" asp-controller="Products" asp-action="Delete" asp-route-id="@i.Id">
+                        <i class="bi bi-trash-fill"></i>
+                    </a>
+                </td>
             </tr>
         }
       
