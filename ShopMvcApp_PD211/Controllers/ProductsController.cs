@@ -33,6 +33,8 @@ namespace ShopMvcApp_PD211.Controllers
         [HttpPost]
         public IActionResult Create(Product model)
         {
+            if (!ModelState.IsValid) return View(model);
+
             context.Products.Add(model);
             context.SaveChanges();
 

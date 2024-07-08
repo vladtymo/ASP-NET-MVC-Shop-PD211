@@ -2,45 +2,59 @@
 <h1>Create Product Form</h1>
 
 <form class="row g-3" method="post" asp-action="Create">
-    <div class="col-md-6">
-        <label asp-for=Title class ="form-label">Title</label>
+    <div class="col-12">
+        <label asp-for=Title class="form-label">Title</label>
         <input asp-for=Title type="text" class="form-control" placeholder="Enter product title">
-    </div>
-    <div class="col-md-6">
-        <label asp-for=CategoryId class="form-label">Category Id</label>
-        <input asp-for=CategoryId type="number" class="form-control" placeholder="Enter product category id">
     </div>
 
     <div class="col-md-5">
         <label asp-for=Price class="form-label">Price</label>
-        <input asp-for=Price type="number" min="0" step="0.01" class="form-control" placeholder="Enter product price">
+        <div class="input-group">
+            <input required asp-for=Price type="number" min="0" step="0.01" class="form-control" placeholder="Enter product price">
+            <span class="input-group-text">$</span>
+        </div>
+
     </div>
     <div class="col-md-4">
         <label asp-for=Discount class="form-label">Discount</label>
-        <input asp-for=Discount type="number" min="0" max="100" class="form-control" placeholder="Enter product discount">
+        <div class="input-group">
+            <input asp-for=Discount type="number" min="0" max="100" class="form-control" placeholder="Enter product discount">
+            <span class="input-group-text">%</span>
+        </div>
     </div>
     <div class="col-md-3">
         <label asp-for=Quantity class="form-label">Quantity</label>
-        <input asp-for=Quantity type="number" min="0" class="form-control" placeholder="Enter product quantity">
+        <input required asp-for=Quantity type="number" min="0" class="form-control" placeholder="Enter product quantity">
+    </div>
+
+    <div class="col-12">
+        <label asp-for=CategoryId class="form-label">Category Id</label>
+        <input required asp-for=CategoryId type="number" class="form-control" placeholder="Enter product category id">
     </div>
 
     <div class="col-12 mb-3">
         <label asp-for=Description class="form-label">Description</label>
         <textarea asp-for=Description class="form-control" rows="3" placeholder="Enter product description"></textarea>
     </div>
-   
+
     @* <div class="col-md-4">
-        <label for="inputState" class="form-label">Category</label>
-        <select id="inputState" class="form-select">
-            <option selected>Choose...</option>
-            <option>...</option>
-        </select>
+    <label for="inputState" class="form-label">Category</label>
+    <select id="inputState" class="form-select">
+    <option selected>Choose...</option>
+    <option>...</option>
+    </select>
     </div> *@
 
     <div class="col-md-6">
-        <button type="button" class="btn btn-dark w-100">Back</button>
+        <a asp-action="Index" class="btn btn-dark w-100">
+            <i class="bi bi-arrow-left"></i>
+            Back
+        </a>
     </div>
     <div class="col-md-6">
-        <button type="submit" class="btn btn-success w-100">Create</button>
+        <button type="submit" class="btn btn-success w-100">
+            <i class="bi bi-plus-lg"></i>
+            Create
+        </button>
     </div>
 </form>
