@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShopMvcApp_PD211.Data;
 using ShopMvcApp_PD211.Entities;
 
@@ -14,9 +15,28 @@ namespace ShopMvcApp_PD211.Controllers
         public IActionResult Index()
         {
             // ... load data from database ...
-            var products = context.Products.ToList();
+            var products = context.Products
+                .Include(x => x.Category) // LEFT JOIN
+                .ToList();
 
             return View(products);
+        }
+
+        // GET - open create page
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST - create object in db
+        [HttpPost]
+        public IActionResult Create(Product model)
+        {
+            context.Products.Add(model);
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult Delete(int id)

@@ -4,6 +4,8 @@
 <h1>Products List</h1>
 <p>You can manage the products here.</p>
 
+<a asp-action="Create" class="btn btn-primary mb-3">Add New Product</a>
+
 <table class="table">
     <thead>
         <tr class="table-dark">
@@ -19,7 +21,7 @@
     <tbody>
         @foreach (var i in Model)
         {
-            <tr>
+            <tr class="align-middle">
                 <th scope="row">@i.Id</th>
                 <td>
                     <span>@i.Title</span>
@@ -39,7 +41,7 @@
                         <span>@i.Price$</span>
                     }
                 </td>
-                <td>@i.Category</td>
+                <td>@(i.Category?.Name ?? "not loaded")</td>
                 <td>
                     @if(i.Quantity > 0)
                     {
