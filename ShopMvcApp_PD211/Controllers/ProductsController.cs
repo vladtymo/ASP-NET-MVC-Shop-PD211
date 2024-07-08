@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ShopMvcApp_PD211.Data;
 using ShopMvcApp_PD211.Entities;
@@ -26,6 +27,7 @@ namespace ShopMvcApp_PD211.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            LoadCategories();
             return View();
         }
 
@@ -33,7 +35,11 @@ namespace ShopMvcApp_PD211.Controllers
         [HttpPost]
         public IActionResult Create(Product model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+            {
+                LoadCategories();
+                return View(model);
+            }
 
             context.Products.Add(model);
             context.SaveChanges();
@@ -51,6 +57,12 @@ namespace ShopMvcApp_PD211.Controllers
             context.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        private void LoadCategories()
+        {
+            // ViewBag - collection of properties that is accessible in View
+            ViewBag.Categories = new SelectList(context.Categories.ToList(), "Id", "Name");
         }
     }
 }
