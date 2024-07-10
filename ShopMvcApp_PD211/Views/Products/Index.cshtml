@@ -60,13 +60,15 @@
                     <button type="button" class="btn btn-outline-secondary">
                         <i class="bi bi-info-square-fill"></i>
                     </button>
+                    <a class="btn btn-outline-warning" asp-controller="Products" asp-action="Edit" asp-route-id="@i.Id">
+                        <i class="bi bi-pencil-fill"></i>
+                    </a>
                     <a class="btn btn-outline-danger" asp-controller="Products" asp-action="Delete" asp-route-id="@i.Id">
                         <i class="bi bi-trash-fill"></i>
                     </a>
                 </td>
             </tr>
         }
-      
     </tbody>
 </table>
 
