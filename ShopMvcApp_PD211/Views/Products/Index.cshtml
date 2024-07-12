@@ -9,10 +9,11 @@
     Add New Product
 </a>
 
-<table class="table">
+<table class="table product-table">
     <thead>
         <tr class="table-dark">
             <th scope="col">#</th>
+            <th class="text-center" scope="col">Image</th>
             <th scope="col">Title</th>
             <th scope="col">Price</th>
             <th scope="col">Category</th>
@@ -26,6 +27,9 @@
         {
             <tr class="align-middle">
                 <th scope="row">@i.Id</th>
+                <td class="text-center">
+                    <img height="40" src="@i.ImageUrl" alt="@i.Title" />
+                </td>
                 <td>
                     <span>@i.Title</span>
                     @if(i.Discount > 0)

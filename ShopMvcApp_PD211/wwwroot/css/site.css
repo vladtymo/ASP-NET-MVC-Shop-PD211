@@ -26,3 +26,12 @@ body {
     margin: 4px;
     border-radius: 6px;
 }
+
+.product-table img {
+    transition: .2s;
+    border-radius: 6px;
+}
+
+.product-table img:hover {
+    transform: scale(4)
+}

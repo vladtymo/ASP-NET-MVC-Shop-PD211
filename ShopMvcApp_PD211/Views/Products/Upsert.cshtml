@@ -1,15 +1,20 @@
 ﻿@model Product
-<h1>Edit Product Form</h1>
+@{
+    var create = ViewBag.CreateMode;
+}
+<h1>@(create ? "Create" : "Edit") Product Form</h1>
 
-<form class="row g-3" method="post" asp-action="Edit">
-    <div class="col-1">
+<form class="row g-3" method="post" asp-action="@(create ? "Create" : "Edit")">
+
+    <div class="col-2">
         <label asp-for=Id class="form-label">Id</label>
-        <input readonly asp-for=Id type="text" class="form-control">
+        <input asp-for=Id readonly type="text" placeholder="Generated" class="form-control">
     </div>
 
-    <div class="col-11">
+    <div class="col-10">
         <label asp-for=Title class="form-label">Title</label>
         <input asp-for=Title type="text" class="form-control" placeholder="Enter product title">
+        <span class="small text-danger" asp-validation-for="Title"></span>
     </div>
 
     <div class="col-md-5">
@@ -18,30 +23,40 @@
             <input required asp-for=Price type="number" min="0" step="0.01" class="form-control" placeholder="Enter product price">
             <span class="input-group-text">$</span>
         </div>
-
+        <span class="small text-danger" asp-validation-for="Price"></span>
     </div>
     <div class="col-md-4">
         <label asp-for=Discount class="form-label">Discount</label>
         <div class="input-group">
-            <input asp-for=Discount type="number" min="0" max="100" class="form-control" placeholder="Enter product discount">
+            <input asp-for=Discount type="number" value="0" min="0" max="100" class="form-control" placeholder="Enter product discount">
             <span class="input-group-text">%</span>
         </div>
+        <span class="small text-danger" asp-validation-for="Discount"></span>
     </div>
     <div class="col-md-3">
         <label asp-for=Quantity class="form-label">Quantity</label>
-        <input required asp-for=Quantity type="number" min="0" class="form-control" placeholder="Enter product quantity">
+        <input required asp-for=Quantity value="0" type="number" min="0" class="form-control" placeholder="Enter product quantity">
+        <span class="small text-danger" asp-validation-for="Quantity"></span>
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-6">
         <label asp-for=CategoryId class="form-label">Category</label>
         <select asp-for=CategoryId asp-items=@ViewBag.Categories class="form-select">
             <option disabled selected>Choose product category...</option>
         </select>
+        <span class="small text-danger" asp-validation-for="CategoryId"></span>
+    </div>
+
+    <div class="col-6">
+        <label asp-for=ImageUrl class="form-label">Image URL</label>
+        <input asp-for=ImageUrl type="text" class="form-control" placeholder="Enter product image URL">
+        <span class="small text-danger" asp-validation-for="ImageUrl"></span>
     </div>
 
     <div class="col-12 mb-3">
         <label asp-for=Description class="form-label">Description</label>
         <textarea asp-for=Description class="form-control" rows="3" placeholder="Enter product description"></textarea>
+        <span class="small text-danger" asp-validation-for="Description"></span>
     </div>
 
     <div class="col-md-6">
@@ -52,8 +67,8 @@
     </div>
     <div class="col-md-6">
         <button type="submit" class="btn btn-success w-100">
-            <i class="bi bi-pencil-fill"></i>
-            Edit
+            <i class="bi bi-plus-lg"></i>
+            @(create ? "Create" : "Edit")
         </button>
     </div>
 </form>

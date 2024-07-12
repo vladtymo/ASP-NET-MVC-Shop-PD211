@@ -28,7 +28,8 @@ namespace ShopMvcApp_PD211.Controllers
         public IActionResult Create()
         {
             LoadCategories();
-            return View();
+            ViewBag.CreateMode = true;
+            return View("Upsert");
         }
 
         // POST - create object in db
@@ -38,7 +39,8 @@ namespace ShopMvcApp_PD211.Controllers
             if (!ModelState.IsValid)
             {
                 LoadCategories();
-                return View(model);
+                ViewBag.CreateMode = true;
+                return View("Upsert", model);
             }
 
             context.Products.Add(model);
@@ -55,7 +57,8 @@ namespace ShopMvcApp_PD211.Controllers
             if (product == null) return NotFound();
 
             LoadCategories();
-            return View(product);
+            ViewBag.CreateMode = false;
+            return View("Upsert", product);
         }
 
         [HttpPost]
@@ -64,7 +67,8 @@ namespace ShopMvcApp_PD211.Controllers
             if (!ModelState.IsValid)
             {
                 LoadCategories();
-                return View(model);
+                ViewBag.CreateMode = false;
+                return View("Upsert", model);
             }
 
             context.Products.Update(model);
