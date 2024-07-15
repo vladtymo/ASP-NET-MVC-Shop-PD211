@@ -1,3 +1,4 @@
+using AutoMapper;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 
@@ -6,12 +7,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// configure fluent validators
+// --------------- configure Fluent Validators
 builder.Services.AddFluentValidationAutoValidation();
 // enable client-side validation
 builder.Services.AddFluentValidationClientsideAdapters();
 // Load an assembly reference rather than using a marker type.
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+
+// --------------- configure Auto Mapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 

@@ -1,5 +1,4 @@
-﻿@using ShopMvcApp_PD211.Entities
-@model List<Product>
+﻿@model List<ProductDto>
 
 <h1>Products List</h1>
 <p>You can manage the products here.</p>
@@ -48,7 +47,7 @@
                         <span>@i.Price$</span>
                     }
                 </td>
-                <td>@(i.Category?.Name ?? "not loaded")</td>
+                <td>@(i.CategoryName ?? "not loaded")</td>
                 <td>
                     @if(i.Quantity > 0)
                     {
