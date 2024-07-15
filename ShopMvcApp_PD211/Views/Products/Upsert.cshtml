@@ -28,14 +28,14 @@
     <div class="col-md-4">
         <label asp-for=Discount class="form-label">Discount</label>
         <div class="input-group">
-            <input asp-for=Discount type="number" value="0" min="0" max="100" class="form-control" placeholder="Enter product discount">
+            <input asp-for=Discount type="number" min="0" max="100" class="form-control" placeholder="Enter product discount">
             <span class="input-group-text">%</span>
         </div>
         <span class="small text-danger" asp-validation-for="Discount"></span>
     </div>
     <div class="col-md-3">
         <label asp-for=Quantity class="form-label">Quantity</label>
-        <input required asp-for=Quantity value="0" type="number" min="0" class="form-control" placeholder="Enter product quantity">
+        <input required asp-for=Quantity type="number" min="0" class="form-control" placeholder="Enter product quantity">
         <span class="small text-danger" asp-validation-for="Quantity"></span>
     </div>
 
