@@ -45,9 +45,21 @@ namespace ShopMvcApp_PD211.Controllers
         }
 
         // видаляє продукт з корзини
-        public IActionResult Remove()
+        public IActionResult Remove(int id)
         {
-            return View();
+            // зчитуємо наявні елементи в корзині
+            var ids = HttpContext.Session.Get<List<int>>("cart_items");
+
+            // якщо елементів немає, тоді створюємо порожній список
+            if (ids == null) return NotFound();
+
+            // додаємо новий елемент
+            ids.Remove(id);
+
+            // зберігаємо оновлений список корзини в cookies
+            HttpContext.Session.Set("cart_items", ids);
+
+            return RedirectToAction("Index");
         }
     }
 }
