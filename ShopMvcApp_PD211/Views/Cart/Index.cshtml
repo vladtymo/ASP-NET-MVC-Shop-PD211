@@ -21,17 +21,18 @@
             <ol class="list-group list-group-numbered">
                 @foreach (var i in Model)
                 {
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
 
+                        <img height="45" src="@i.ImageUrl" alt="@i.Title" />
                         <div class="ms-2 me-auto text-start">
 
-                            <img height="40" src="@i.ImageUrl" alt="@i.Title" />
+                            
                             <div class="fw-bold">@i.Title</div>
                             Category: @i.CategoryName | Stock: @i.Quantity
                         </div>
                         <div>
-                            <span class="badge text-bg-primary rounded-pill">@i.Price$</span>
-                            <a asp-action="Remove" asp-route-id="@i.Id" class="btn btn-outline-danger">
+                            <span style="background-color: #0d6efd" class="badge text-bg-primary">@i.Price$</span>
+                            <a asp-action="Remove" asp-route-id="@i.Id" class="btn text-danger">
                                 <i class="bi bi-trash3"></i>
                             </a>
                         </div>
@@ -43,6 +44,6 @@
         }
     </div>
     <div class="card-footer text-body-secondary">
-        Total: 000$
+        Total: <span style="background-color: #0d6efd" class="badge text-bg-primary">@Model.Sum(x => x.Price)$</span>
     </div>
 </div>
