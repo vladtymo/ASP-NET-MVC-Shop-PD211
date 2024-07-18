@@ -1,11 +1,13 @@
 using Core.MapperProfiles;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using ShopMvcApp_PD211.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
 
 // --------------- configure Fluent Validators
 builder.Services.AddFluentValidationAutoValidation();
@@ -26,6 +28,8 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+builder.Services.AddScoped<ICartService, CartService>();
 
 var app = builder.Build();
 
