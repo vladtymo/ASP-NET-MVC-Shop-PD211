@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ShopMvcApp_PD211.Data;
+using Data;
 using ShopMvcApp_PD211.Models;
 using System.Diagnostics;
 

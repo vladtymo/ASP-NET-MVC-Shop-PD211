@@ -1,6 +1,6 @@
-﻿using ShopMvcApp_PD211.Entities;
+﻿using Data.Entities;
 
-namespace ShopMvcApp_PD211.Dtos
+namespace Core.Dtos
 {
     public class ProductDto
     {

@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ShopMvcApp_PD211.Data;
-using ShopMvcApp_PD211.Dtos;
-using ShopMvcApp_PD211.Entities;
+using Data;
+using Core.Dtos;
+using Data.Entities;
 
 namespace ShopMvcApp_PD211.Controllers
 {

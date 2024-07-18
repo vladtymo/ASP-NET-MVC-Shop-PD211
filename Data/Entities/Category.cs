@@ -1,4 +1,4 @@
-﻿namespace ShopMvcApp_PD211.Entities
+﻿namespace Data.Entities
 {
     public class Category
     {

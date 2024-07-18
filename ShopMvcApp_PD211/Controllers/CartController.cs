@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using Core.Dtos;
+using Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ShopMvcApp_PD211.Data;
-using ShopMvcApp_PD211.Dtos;
 using ShopMvcApp_PD211.Extensions;
 
 namespace ShopMvcApp_PD211.Controllers

@@ -1,4 +1,4 @@
-using AutoMapper;
+using Core.MapperProfiles;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 
@@ -15,7 +15,7 @@ builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
 // --------------- configure Auto Mapper
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(AppProfile));
 
 // --------------- Sessions
 builder.Services.AddDistributedMemoryCache();
