@@ -1,13 +1,19 @@
 using Core.MapperProfiles;
+using Core.Services;
+using Data;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 using ShopMvcApp_PD211.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+string connectionString = builder.Configuration.GetConnectionString("LocalDb");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddDbContext<ShopDbContext>(opt => opt.UseSqlServer(connectionString));
 
 // --------------- configure Fluent Validators
 builder.Services.AddFluentValidationAutoValidation();

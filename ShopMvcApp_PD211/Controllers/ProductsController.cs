@@ -10,12 +10,13 @@ namespace ShopMvcApp_PD211.Controllers
 {
     public class ProductsController : Controller
     {
-        private ShopDbContext context = new();
         private readonly IMapper mapper;
+        private readonly ShopDbContext context;
 
-        public ProductsController(IMapper mapper)
+        public ProductsController(IMapper mapper, ShopDbContext context)
         {
             this.mapper = mapper;
+            this.context = context;
         }
 
         public IActionResult Index()

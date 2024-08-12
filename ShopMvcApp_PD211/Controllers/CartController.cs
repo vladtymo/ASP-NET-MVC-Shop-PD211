@@ -1,64 +1,40 @@
 ﻿using AutoMapper;
 using Core.Dtos;
+using Core.Services;
 using Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopMvcApp_PD211.Extensions;
+using ShopMvcApp_PD211.Services;
 
 namespace ShopMvcApp_PD211.Controllers
 {
     public class CartController : Controller
     {
-        private ShopDbContext context = new();
-        private readonly IMapper mapper;
+        private readonly ICartService cartService;
 
-        public CartController(IMapper mapper)
+        public CartController(ICartService cartService)
         {
-            this.mapper = mapper;
+            this.cartService = cartService;
         }
         // відображає сторінку корзини із доданими продуктами
         public IActionResult Index()
         {
-            var ids = HttpContext.Session.Get<List<int>>("cart_items") ?? new();
-
-            var products = context.Products.Include(x => x.Category).Where(x => ids.Contains(x.Id)).ToList();
-
-            return View(mapper.Map<List<ProductDto>>(products));
+            return View(cartService.GetProducts());
         }
 
         // додає продукт в корзину
         public IActionResult Add(int id)
         {
-            // зчитуємо наявні елементи в корзині
-            var ids = HttpContext.Session.Get<List<int>>("cart_items");
-
-            // якщо елементів немає, тоді створюємо порожній список
-            if (ids == null) ids = new();
-            // додаємо новий елемент
-            ids.Add(id);
-
-            // зберігаємо оновлений список корзини в cookies
-            HttpContext.Session.Set("cart_items", ids);
-
+            cartService.Add(id);
             return RedirectToAction("Index");
         }
 
         // видаляє продукт з корзини
         public IActionResult Remove(int id)
         {
-            // зчитуємо наявні елементи в корзині
-            var ids = HttpContext.Session.Get<List<int>>("cart_items");
-
-            // якщо елементів немає, тоді створюємо порожній список
-            if (ids == null) return NotFound();
-
-            // додаємо новий елемент
-            ids.Remove(id);
-
-            // зберігаємо оновлений список корзини в cookies
-            HttpContext.Session.Set("cart_items", ids);
-
+            cartService.Remove(id);
             return RedirectToAction("Index");
         }
     }
