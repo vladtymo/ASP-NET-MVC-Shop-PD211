@@ -25,10 +25,10 @@ namespace ShopMvcApp_PD211.Controllers
         }
 
         // додає продукт в корзину
-        public IActionResult Add(int id)
+        public IActionResult Add(int id, string? returnUrl)
         {
             cartService.Add(id);
-            return RedirectToAction("Index");
+            return Redirect(returnUrl ?? "/");
         }
 
         // видаляє продукт з корзини

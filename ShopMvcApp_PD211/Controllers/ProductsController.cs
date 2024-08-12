@@ -29,6 +29,15 @@ namespace ShopMvcApp_PD211.Controllers
             return View(mapper.Map<List<ProductDto>>(products));
         }
 
+        public IActionResult Details(int id)
+        {
+            var product = context.Products.Find(id);
+
+            if (product == null) return NotFound();
+
+            return View(mapper.Map<ProductDto>(product));
+        }
+
         // GET - open create page
         [HttpGet]
         public IActionResult Create()

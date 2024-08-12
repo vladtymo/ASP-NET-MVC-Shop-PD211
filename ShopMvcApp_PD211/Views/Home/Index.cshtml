@@ -27,7 +27,7 @@
                 <div class="card-body">
                     <h5 class="card-title">@i.Title</h5>
                     <p class="card-text">@i.Price$ - @i.Quantity</p>
-                    <a asp-controller="Cart" asp-action="Add" asp-route-id="@i.Id" class="btn btn-primary">Add to Cart</a>
+                    <a asp-controller="Cart" asp-action="Add" asp-route-id="@i.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-primary">Add to Cart</a>
                 </div>
             </div>
         </div>
