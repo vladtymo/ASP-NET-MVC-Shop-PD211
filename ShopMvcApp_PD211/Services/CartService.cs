@@ -2,6 +2,7 @@
 using Core.Dtos;
 using Core.Services;
 using Data;
+using Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using ShopMvcApp_PD211.Extensions;
 
@@ -27,6 +28,13 @@ namespace ShopMvcApp_PD211.Services
             var products = context.Products.Include(x => x.Category).Where(x => ids.Contains(x.Id)).ToList();
 
             return mapper.Map<List<ProductDto>>(products);
+        }
+
+        public List<Product> GetProductsEntity()
+        {
+            var ids = httpContext.Session.Get<List<int>>("cart_items") ?? new();
+
+            return context.Products.Include(x => x.Category).Where(x => ids.Contains(x.Id)).ToList();
         }
 
         public int GetCount()
@@ -67,6 +75,11 @@ namespace ShopMvcApp_PD211.Services
 
             // зберігаємо оновлений список корзини в cookies
             httpContext.Session.Set("cart_items", ids);
+        }
+
+        public void Clear()
+        {
+            httpContext.Session.Remove("cart_items");
         }
     }
 }

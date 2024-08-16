@@ -6,5 +6,7 @@ namespace Data.Entities
     {
         // custom properties...
         public DateTime? Birthdate { get; set; }
+
+        public ICollection<Order>? Orders { get; set; }
     }
 }
