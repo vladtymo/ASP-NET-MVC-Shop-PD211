@@ -28,7 +28,9 @@
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <p>Hello blabla...</p>
+                <input asp-for="Input.Birthdate" class="form-control" />
+                <label asp-for="Input.Birthdate">Birthdate</label>
+                <span asp-validation-for="Input.Birthdate" class="text-danger"></span>
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>

@@ -6,6 +6,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using ShopMvcApp_PD211.Services;
 using Microsoft.AspNetCore.Identity;
+using Data.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 string connectionString = builder.Configuration.GetConnectionString("LocalDb");
@@ -16,7 +17,7 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<ShopDbContext>(opt => opt.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ShopDbContext>();
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ShopDbContext>();
 
 // --------------- configure Fluent Validators
 builder.Services.AddFluentValidationAutoValidation();
