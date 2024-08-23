@@ -11,10 +11,10 @@ namespace Core.Validators
             RuleFor(x => x.Title)
                 .NotNull()
                 .NotEmpty();
-            RuleFor(x => x.ImageUrl)
-                .NotNull()
-                .NotEmpty()
-                .Must(ValidateUri).WithMessage("Image URL must be a valid address.");
+            //RuleFor(x => x.ImageUrl)
+            //    .NotNull()
+            //    .NotEmpty()
+            //    .Must(ValidateUri).WithMessage("Image URL must be a valid address.");
             RuleFor(x => x.Price)
                 .GreaterThan(0);
             RuleFor(x => x.Discount)

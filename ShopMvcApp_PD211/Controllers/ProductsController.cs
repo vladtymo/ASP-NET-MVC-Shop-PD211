@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using Core.Dtos;
 using Data.Entities;
+using Core.Interfaces;
 
 namespace ShopMvcApp_PD211.Controllers
 {
@@ -12,11 +13,13 @@ namespace ShopMvcApp_PD211.Controllers
     {
         private readonly IMapper mapper;
         private readonly ShopDbContext context;
+        private readonly IFileService fileService;
 
-        public ProductsController(IMapper mapper, ShopDbContext context)
+        public ProductsController(IMapper mapper, ShopDbContext context, IFileService fileService)
         {
             this.mapper = mapper;
             this.context = context;
+            this.fileService = fileService;
         }
 
         public IActionResult Index()
@@ -49,7 +52,7 @@ namespace ShopMvcApp_PD211.Controllers
 
         // POST - create object in db
         [HttpPost]
-        public IActionResult Create(ProductDto model)
+        public async Task<IActionResult> Create(ProductDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -70,6 +73,11 @@ namespace ShopMvcApp_PD211.Controllers
             //    Quantity = model.Quantity
             //};
             // 2 - using auto mapper
+
+            // save image and get file path
+            if (model.Image != null)
+                model.ImageUrl = await fileService.SaveProductImage(model.Image);
+
             var entity = mapper.Map<Product>(model);
 
             context.Products.Add(entity);
@@ -111,6 +119,9 @@ namespace ShopMvcApp_PD211.Controllers
             var product = context.Products.Find(id);
 
             if (product == null) return NotFound(); // 404
+
+            if (product.ImageUrl != null) 
+                fileService.DeleteProductImage(product.ImageUrl);
 
             context.Products.Remove(product);
             context.SaveChanges();

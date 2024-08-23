@@ -7,9 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using ShopMvcApp_PD211.Services;
 using Microsoft.AspNetCore.Identity;
 using Data.Entities;
+using Core.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
-string connectionString = builder.Configuration.GetConnectionString("LocalDb");
+string connectionString = builder.Configuration.GetConnectionString("SomeeComDb")!;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -40,6 +41,7 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 var app = builder.Build();
 

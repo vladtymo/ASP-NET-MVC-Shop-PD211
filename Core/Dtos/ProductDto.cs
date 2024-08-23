@@ -1,4 +1,5 @@
 ﻿using Data.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace Core.Dtos
 {
@@ -7,6 +8,7 @@ namespace Core.Dtos
         public int? Id { get; set; }
         public string? Title { get; set; }
         public string? ImageUrl { get; set; }
+        public IFormFile? Image { get; set; }
         public decimal Price { get; set; }
         public int Discount { get; set; }
         public int Quantity { get; set; }
