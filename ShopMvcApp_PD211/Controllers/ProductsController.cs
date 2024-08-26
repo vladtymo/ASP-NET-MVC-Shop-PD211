@@ -99,7 +99,7 @@ namespace ShopMvcApp_PD211.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(ProductDto model)
+        public async Task<IActionResult> Edit(ProductDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -107,6 +107,9 @@ namespace ShopMvcApp_PD211.Controllers
                 ViewBag.CreateMode = false;
                 return View("Upsert", model);
             }
+
+            if (model.Image != null)
+                model.ImageUrl = await fileService.EditProductImage(model.ImageUrl, model.Image);
 
             context.Products.Update(mapper.Map<Product>(model));
             context.SaveChanges();
