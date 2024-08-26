@@ -8,6 +8,8 @@ using ShopMvcApp_PD211.Services;
 using Microsoft.AspNetCore.Identity;
 using Data.Entities;
 using Core.Interfaces;
+using ShopMvcApp_PD211.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 string connectionString = builder.Configuration.GetConnectionString("SomeeComDb")!;
@@ -18,7 +20,11 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<ShopDbContext>(opt => opt.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ShopDbContext>();
+builder.Services.AddIdentity<User, IdentityRole>(options => 
+    options.SignIn.RequireConfirmedAccount = false)
+    .AddDefaultUI()
+    .AddDefaultTokenProviders()
+    .AddEntityFrameworkStores<ShopDbContext>();
 
 // --------------- configure Fluent Validators
 builder.Services.AddFluentValidationAutoValidation();
@@ -44,6 +50,13 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IFileService, FileService>();
 
 var app = builder.Build();
+
+// ------------- seed roles and admins
+using (var scope = app.Services.CreateScope())
+{
+    scope.ServiceProvider.SeedRoles().Wait();
+    scope.ServiceProvider.SeedAdmin().Wait();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -6,6 +6,8 @@ using Data;
 using Core.Dtos;
 using Data.Entities;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using ShopMvcApp_PD211.Extensions;
 
 namespace ShopMvcApp_PD211.Controllers
 {
@@ -117,6 +119,7 @@ namespace ShopMvcApp_PD211.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = Roles.ADMIN)]
         public IActionResult Delete(int id)
         {
             var product = context.Products.Find(id);
