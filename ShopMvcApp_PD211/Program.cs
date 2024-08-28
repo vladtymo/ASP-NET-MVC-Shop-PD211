@@ -10,6 +10,7 @@ using Data.Entities;
 using Core.Interfaces;
 using ShopMvcApp_PD211.Extensions;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 string connectionString = builder.Configuration.GetConnectionString("SomeeComDb")!;
@@ -48,6 +49,7 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
