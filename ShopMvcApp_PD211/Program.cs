@@ -50,6 +50,7 @@ builder.Services.AddSession(options =>
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IViewRender, ViewRender>();
 
 var app = builder.Build();
 

@@ -1,4 +1,7 @@
-﻿using Core.Services;
+﻿using Core.Dtos;
+using Core.Interfaces;
+using Core.Models;
+using Core.Services;
 using Data;
 using Data.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -16,6 +19,7 @@ namespace ShopMvcApp_PD211.Controllers
         private readonly ShopDbContext context;
         private readonly ICartService cartService;
         private readonly IEmailSender emailSender;
+        private readonly IViewRender viewRender;
 
         private string CurrentUserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
         private string CurrentUserEmail => User.FindFirstValue(ClaimTypes.Email)!;
@@ -23,11 +27,13 @@ namespace ShopMvcApp_PD211.Controllers
         public OrdersController(
             ShopDbContext context, 
             ICartService cartService,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IViewRender viewRender)
         {
             this.context = context;
             this.cartService = cartService;
             this.emailSender = emailSender;
+            this.viewRender = viewRender;
         }
 
         public IActionResult Index()
@@ -55,8 +61,16 @@ namespace ShopMvcApp_PD211.Controllers
 
             var totalPrice = products.Sum(x => x.Price);
 
+            var html = viewRender.Render("MailTemplates/OrderSummary", new OrderSummaryModel
+            {
+                OrderNumber = order.Id,
+                UserName = CurrentUserEmail,
+                Products = cartService.GetProducts(),
+                TotalPrice = totalPrice
+            });
+
             // send email of order to the client
-            await emailSender.SendEmailAsync(CurrentUserEmail, $"New Order #{order.Id}", $"<p>Total Price: {totalPrice}$</p>");
+            await emailSender.SendEmailAsync(CurrentUserEmail, $"New Order #{order.Id}", html);
 
             cartService.Clear();
 
